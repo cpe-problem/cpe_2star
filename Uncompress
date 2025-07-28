@@ -1,0 +1,47 @@
+//uva-245
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    vector<string> line;
+    string s;
+    while(getline(cin, s))
+    {
+        if(s=="0") break;
+        int i=0, n=s.size();
+        while(i<n)
+        {
+            if(isalpha(s[i]))
+            {
+                string word;
+                while(i<n && isalpha(s[i])) word+=s[i++];
+                bool flag=false;
+                for(int j=0;j<line.size();j++)
+                {
+                    if(line[j]==word)
+                    {
+                        flag=true;
+                        break;
+                    }
+                }
+                if(!flag)
+                {
+                    cout << word;
+                    line.insert(line.begin(), word);
+                }
+            }
+            else if(isdigit(s[i])) //如果是數字（0~9），要視為出現過的單詞的編號，把那個單詞抓出來、印出並移到最前面。
+            {
+                int num=0;
+                while(i<n && isdigit(s[i])) num=num*10+(s[i++]-'0');
+                string s1 = line[num-1];
+                cout << s1;
+                line.erase(line.begin()+num-1);
+                line.insert(line.begin(), s1);
+            }
+            else cout << s[i++];
+        }
+        cout << endl;
+    }
+}
