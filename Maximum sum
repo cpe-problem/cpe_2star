@@ -1,0 +1,35 @@
+//uva-108
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int num;
+    while(cin >> num)
+    {
+        vector<vector<int>> x(num, vector<int>(num));
+        for(int i=0;i<num;i++)
+            for(int j=0;j<num;j++) cin >> x[i][j];
+            
+        int max_sum = INT_MIN;
+        for(int i=0;i<num;i++)
+        {
+            vector<int> temp(num, 0);
+            for(int j=i;j<num;j++)
+            {
+                for(int k=0;k<num;k++)
+                    temp[k]+=x[j][k];
+            
+                int curr_sum=0, curr_max=INT_MIN;
+                for(int k=0;k<num;k++)
+                {
+                    curr_sum += temp[k];
+                    curr_max = max(curr_max, curr_sum);
+                    if(curr_sum<0) curr_sum=0;
+                }
+                max_sum = max(max_sum, curr_max);
+            }
+        }
+        cout << max_sum << endl;
+    }
+}
