@@ -1,0 +1,37 @@
+//uva-300
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<string> haab = {
+    "pop", "no", "zip", "zotz", "tzec", "xul", "yoxkin", "mol", "chen",
+    "yax", "zac", "ceh", "mac", "kankin", "muan", "pax", "koyab", "cumhu", "uayet"
+};
+
+vector<string> tzolkin = {
+    "imix", "ik", "akbal", "kan", "chicchan", "cimi", "manik", "lamat", "muluk", "ok",
+    "chuen", "eb", "ben", "ix", "mem", "cib", "caban", "eznab", "canac", "ahau"
+};
+
+int main()
+{
+    int t;
+    cin >> t;
+    cout << t << endl;
+    map<string, int> index;
+    for (int i = 0; i < haab.size(); i++)
+        index[haab[i]] = i;
+    
+    while(t--)
+    {
+        int days,year, sum=0; 
+        string dot, month;
+        cin >> days >> dot >> month >> year;
+        sum=year*365+index[month]*20+days;
+        if(month=="uayet") sum=year*365+18*20+days;
+        int t_year = sum/260;
+        int t_day = sum%260;
+        int t_num = (t_day%13)+1;
+        int t_name = t_day%20;
+        cout << t_num << " " << tzolkin[t_name] << " " << t_year << endl;
+    }
+}
