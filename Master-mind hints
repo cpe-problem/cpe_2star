@@ -1,0 +1,58 @@
+//uva-340
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int num, count=1;
+    while(cin >> num, num)
+    {
+        cout << "Game " << count++ << ":" << endl;
+        vector<int> code(num), guess(num);
+        for(int i=0;i<num;i++) cin >> code[i];
+        while(true)
+        {
+            for(int i=0;i<num;i++) cin >> guess[i];
+            bool is_zero=true;
+            for(int i=0;i<num;i++)
+            {
+                if(guess[i]!=0)
+                {
+                    is_zero=false;
+                    break;
+                }
+            }
+            if(is_zero) break;
+            
+            vector<bool> code_check(num, false);
+            vector<bool> guess_check(num, false);
+            int yes=0, no=0;
+            
+            for(int i=0;i<num;i++)
+            {
+                if(code[i]==guess[i])
+                {
+                    yes++;
+                    code_check[i]=true;
+                    guess_check[i]=true;
+                }
+            }
+            
+            for(int i=0;i<num;i++)
+            {
+                if(code_check[i]) continue;
+                for(int j=0;j<num;j++)
+                {
+                    if(guess_check[j]) continue;
+                    if(code[i]==guess[j])
+                    {
+                        no++;
+                        guess_check[j]=true;
+                        break;
+                    }   
+                }
+            }
+            cout << "    (" << yes << "," << no << ")\n";
+        }
+    }
+}
